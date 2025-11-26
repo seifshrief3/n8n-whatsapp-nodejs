@@ -2,7 +2,7 @@
 FROM node:20
 
 # تثبيت متطلبات Puppeteer/Chromium الأساسية 
-# (مهمة لـ whatsapp-web.js)
+# (تمت إضافة libgbm.so.2 وتوابعها لحل مشكلة Shared Libraries)
 RUN apt-get update \
     && apt-get install -y \
     ca-certificates \
@@ -18,6 +18,7 @@ RUN apt-get update \
     libxss1 \
     libxtst6 \
     xdg-utils \
+    libgbm-dev \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
@@ -27,7 +28,7 @@ WORKDIR /app
 COPY package.json .
 COPY index.js .
 
-# نستخدم التثبيت النظيف للمكتبات (هنا هيتم تنزيل Puppeteer و Chromium)
+# تثبيت المكتبات (هنا بيتم تنزيل Puppeteer و Chromium)
 RUN npm install
 
 # الأمر اللي بيشغل السيرفر
