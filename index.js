@@ -27,7 +27,7 @@ const client = new Client({
       '--no-zygote',
       '--disable-gpu',
     ],
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
+    // تم حذف سطر executablePath: process.env.PUPPETEER_EXECUTABLE_PATH, لتجنب خطأ ENOENT
   },
 });
 
