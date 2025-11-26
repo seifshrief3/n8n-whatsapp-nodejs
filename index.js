@@ -32,10 +32,16 @@ const client = new Client({
 });
 
 client.on('qr', (qr) => {
-  // بيطبع الـ QR Code في Logs Railway
+  // بيطبع الـ QR Code في Logs Railway (الطباعة النصية)
   console.log('\n--- SCAN THIS QR CODE (whatapp-web.js) ---\n');
   qrcode.generate(qr, { small: true });
-  console.log('\n---------------------------\n');
+  console.log('\n----------------------------------------\n');
+
+  // NEW: طباعة لينك بيفتح الـ QR Code كصورة على سيرفر خارجي
+  // اللينك ده تقدر تفتحه في المتصفح ويعرض لك صورة QR جاهزة للـ Scan
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(qr)}`;
+  console.log(`QR Code URL: ${qrCodeUrl}`);
+  console.log('\n--- افتح اللينك ده في المتصفح عشان تعمل Scan ---\n');
 });
 
 client.on('ready', () => {
